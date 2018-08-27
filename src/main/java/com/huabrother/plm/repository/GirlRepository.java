@@ -1,7 +1,7 @@
-package com.huabrother.plm;
+package com.huabrother.plm.repository;
 
+import com.huabrother.plm.pojo.Girl;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

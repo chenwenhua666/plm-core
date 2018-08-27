@@ -1,6 +1,6 @@
-package com.huabrother.plm;
+package com.huabrother.plm.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.huabrother.plm.properties.GirlProperies;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

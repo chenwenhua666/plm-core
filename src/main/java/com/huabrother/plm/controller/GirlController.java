@@ -1,9 +1,18 @@
-package com.huabrother.plm;
+package com.huabrother.plm.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.huabrother.plm.pojo.Girl;
+import com.huabrother.plm.repository.GirlRepository;
+import com.huabrother.plm.service.GirlService;
+import com.huabrother.plm.utils.ResultUtil;
+import com.huabrother.plm.vo.Result;
+import org.omg.CORBA.PUBLIC_MEMBER;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -14,6 +23,7 @@ import java.util.List;
 
 @RestController
 public class GirlController {
+    private  final static Logger log = LoggerFactory.getLogger(GirlController.class);
 
     @Resource
     private GirlRepository girlRepository;
@@ -22,16 +32,21 @@ public class GirlController {
 
     @GetMapping(value = "/showAll")
     public List<Girl> showGirls(){
+        log.info("显示全部");
         return girlRepository.findAll();
     }
 
     //@RequestMapping(value = "/add",method = RequestMethod.POST)
     @PostMapping(value = "/add")
-    public Girl add(@RequestParam String cupSize,@RequestParam Integer age){
-        Girl girl = new Girl();
-        girl.setAge(age);
-        girl.setCupSize(cupSize);
-        return girlRepository.save(girl);
+    public Result add(@Valid Girl girl , BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return null;
+         //  return ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
+        }
+        girl.setAge(girl.getAge());
+        girl.setCupSize(girl.getCupSize());
+        girl.setMoney(girl.getMoney());
+        return  ResultUtil.success(girlRepository.save(girl));
     }
 
     @RequestMapping(value = "/findOne/{id}",method = RequestMethod.GET)
@@ -63,6 +78,11 @@ public class GirlController {
     @GetMapping(value = "/insertTwo")
     public void insertTwo(){
         girlService.insertTwo();
+    }
+
+    @GetMapping(value = "/getAge/{id}")
+    public void getAge(@PathVariable("id") Integer id) throws Exception{
+        girlService.getAge(id);
     }
 
 }

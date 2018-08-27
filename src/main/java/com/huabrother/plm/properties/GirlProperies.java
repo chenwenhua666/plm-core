@@ -1,4 +1,4 @@
-package com.huabrother.plm;
+package com.huabrother.plm.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;

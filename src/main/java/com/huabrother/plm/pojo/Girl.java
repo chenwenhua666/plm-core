@@ -1,6 +1,7 @@
-package com.huabrother.plm;
+package com.huabrother.plm.pojo;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * chenwenhua
@@ -15,11 +16,27 @@ public class Girl {
     private  Integer id;
 
     @Column(name = "grilAge")
+    @Min(value = 18,message = "未成年禁止")
+    @Max(value = 150,message = "超过年龄限制")
     private Integer age;
 
+    @NotBlank(message = "cup为必填")
     private String cupSize;
 
+    @NotNull(message = "金额必填")
+    private Double money;
+
     public Girl() {
+    }
+
+    @Override
+    public String toString() {
+        return "Girl{" +
+                "id=" + id +
+                ", age=" + age +
+                ", cupSize='" + cupSize + '\'' +
+                ", money=" + money +
+                '}';
     }
 
     public Integer getId() {
@@ -44,5 +61,13 @@ public class Girl {
 
     public void setCupSize(String cupSize) {
         this.cupSize = cupSize;
+    }
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
     }
 }
